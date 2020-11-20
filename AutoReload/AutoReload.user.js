@@ -8,7 +8,7 @@
 // @license      GPL-3.0-only
 // @create       2020-11-20
 // @lastmodified 2020-11-20
-// @version      0.6
+// @version      0.7
 // @match        http*://*/*
 // @icon         https://xnu132.win/assets/img/favicon.png
 // @require      https://cdn.staticfile.org/vue/2.6.11/vue.js
