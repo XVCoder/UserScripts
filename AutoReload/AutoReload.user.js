@@ -13,8 +13,9 @@
 // @icon         https://xnu132.win/assets/img/favicon.png
 // @require      https://cdn.staticfile.org/vue/2.6.11/vue.js
 // @require      https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js
-// @note         2020-11-20 v0.6 默认匹配所有网页，修改match以指定需要自动刷新的网页
-// @note         2020-11-20 v0.5 实现基本功能
+// @note         2020-11-20 v0.7 修改 信息完善，脚本源迁移到GitHub
+// @note         2020-11-20 v0.6 修改 默认匹配所有网页，修改match以指定需要自动刷新的网页
+// @note         2020-11-20 v0.5 新增 实现基本功能
 // @home-url     https://greasyfork.org/zh-CN/scripts/416449-auto-reload
 // @home-url2    https://github.com/XVCoder/UserScripts/AutoReload
 // @homepageURL  https://greasyfork.org/zh-CN/scripts/416449-auto-reload
