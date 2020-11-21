@@ -7,12 +7,13 @@
 // @author       XVCoder
 // @license      GPL-3.0-only
 // @create       2020-11-20
-// @lastmodified 2020-11-20
-// @version      0.7
+// @lastmodified 2020-11-21
+// @version      0.8
 // @match        http*://*/*
 // @icon         https://xnu132.win/assets/img/favicon.png
 // @require      https://cdn.staticfile.org/vue/2.6.11/vue.js
 // @require      https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js
+// @require      2020-11-21 v0.8 优化 显示效果
 // @note         2020-11-20 v0.7 修改 信息完善，脚本源迁移到GitHub
 // @note         2020-11-20 v0.6 修改 默认匹配所有网页，修改match以指定需要自动刷新的网页
 // @note         2020-11-20 v0.5 新增 实现基本功能
@@ -26,7 +27,7 @@
 // ==/UserScript==
 
 !function () {
-    let isdebug = true;//是否为调试模式
+    let isdebug = false;//是否为调试模式
     let isLocalDebug = isdebug || false;
     //调试模式时，使用「debug("message");」输出到Console中
     let debug = isdebug ? console.log.bind(console) : function () {
@@ -38,7 +39,7 @@
         GM.getValue = GM_getValue;
     }
     //默认配置
-    let DefaultConfig = { countDown:1 };
+    let DefaultConfig = { countDown:1, selectedOption:5 };
     //可重载的配置文件
     let DBConfig = {};
     debug("============ Auto Load Start============");
@@ -67,8 +68,6 @@
             //=============================================== 固定配置项  ↓↓↓↓↓
             //选项被选中时的标志
             let optSelectedMark = "✔";//✔
-            //页面重新加载倒计时（秒）
-            let seconds = DBConfig.countDown * 60;
             //重载提示
             let reloadHint = "reload after: ";//
             //播放符号
@@ -81,6 +80,10 @@
             let unvisibleMark = "❯";//⍈⇲❯
             //设置符号
             let settingMark = "⚙";//🕓⏱🛠⚙
+            //设置选项圆角曲率（默认5）
+            let settingOptsRadius = 3;
+            //设置菜单宽度(单位px;默认45)
+            let settingMenuWidth = 45;
             //用户脚本加载等待时间
             let loadTime = 200;
             //倒计时选项（时长：min）
@@ -100,6 +103,8 @@
                 opt5: opts.opt5 + "min ",
             };
             //=============================================== 固定配置项  ↑↑↑↑↑
+            //页面重新加载倒计时（秒）
+            let seconds = DBConfig.countDown * 60;
             //计时器
             let timer = null;
             //显示当前倒计时选项的配置
@@ -139,15 +144,15 @@
                 style.innerHTML =
                     ''
                     + '.leftTime {color:#00000077;font-size:12px;position:absolute;bottom:0px;right:25px;}'
-                    + '.pauseBtn {position:absolute;bottom:0px;right:130px;background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);background-color:#ffffff;display:inline-block;cursor:pointer;color:#666666;font-family:Arial;font-size:8px;font-weight:bold;padding:0px 1px;text-decoration:none;}'
-                    + '.dropdown {position:absolute;bottom:0px;right:150px;background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);background-color:#ffffff;display:inline-block;}'
+                    + '.pauseBtn {position:absolute;bottom:0px;right:130px;background:transparent;display:inline-block;cursor:pointer;color:#666666;font-family:Arial;font-size:8px;font-weight:bold;padding:0px 1px;text-decoration:none;}'
+                    + '.xDropdown {position:absolute;bottom:0px;right:150px;background:transparent;display:inline-block;}'
                     + '.settingBtn {cursor:pointer;color:#666666;line-height:17px;font-family:Arial;font-size:14px;font-weight:bold;text-decoration:none;cursor:pointer;}'
-                    + '.dropdown-content {display:none;position:absolute;border-radius:5px;background-color:#f9f9f9;box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);}'
-                    + '.dropdown-content div {-moz-user-select:none;-webkit-user-select:none;user-select:none;width:45px;padding:2px 10px 2px 14px;border-radius:5px;font-family:Arial;font-size:10px;corlor:00000077;text-decoration:none;display:block;cursor:arror;}'
-                    + '.dropdown-content div:hover {background-color:#B1B1B1;color:white}'
-                    + '.dropdown:hover .dropdown-content {display:block;bottom:15px}'
-                    + '.dropdown:hover .settingBtn {color:orange;}'
-                    + '.hiddenBtn {position:absolute;bottom:0px;right:170px;background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);background-color:#ffffff;display:inline-block;cursor:pointer;color:#666666;font-family:Arial;font-size:8px;padding:0px 1px;text-decoration:none;}'
+                    + '.xDropdown-content {display:none;position:absolute;border-radius:'+settingOptsRadius+'px;background-color:#f9f9f9;box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);}'
+                    + '.xDropdown-content div {-moz-user-select:none;-webkit-user-select:none;user-select:none;min-width:'+settingMenuWidth+'px;padding:2px 10px 2px 14px;border-radius:'+settingOptsRadius+'px;font-family:Arial;font-size:10px;corlor:00000077;text-decoration:none;display:block;cursor:arror;}'
+                    + '.xDropdown-content div:hover {background-color:#B1B1B1;color:white}'
+                    + '.xDropdown:hover .xDropdown-content {display:block;bottom:15px}'
+                    + '.xDropdown:hover .settingBtn {color:orange;}'
+                    + '.hiddenBtn {position:absolute;bottom:0px;right:170px;background:transparent;display:inline-block;cursor:pointer;color:#666666;font-family:Arial;font-size:8px;padding:0px 1px;text-decoration:none;}'
                     + ''
                 ;
                 document.getElementsByTagName('HEAD').item(0).appendChild(style);
@@ -166,15 +171,15 @@
                 pauseBtn.innerHTML = pauseMark;
                 document.body.appendChild(pauseBtn);
                 //下拉菜单区域
-                let dropdownDiv = document.createElement("div");
-                dropdownDiv.setAttribute("id", "dropdown");
-                dropdownDiv.className = "dropdown";
-                document.body.appendChild(dropdownDiv);
+                let xDropdownDiv = document.createElement("div");
+                xDropdownDiv.setAttribute("id", "xDropdown");
+                xDropdownDiv.className = "xDropdown";
+                document.body.appendChild(xDropdownDiv);
                 //下拉菜单主体
-                let dropdownContentDiv = document.createElement("div");
-                dropdownContentDiv.setAttribute("id", "dropdown-content");
-                dropdownContentDiv.className = "dropdown-content";
-                dropdownContentDiv.innerHTML =
+                let xDropdownContentDiv = document.createElement("div");
+                xDropdownContentDiv.setAttribute("id", "xDropdown-content");
+                xDropdownContentDiv.className = "xDropdown-content";
+                xDropdownContentDiv.innerHTML =
                     ""
                     + "<div id='opt1'>" + optsDisplay.opt1 + "</div>"
                     + "<div id='opt2'>" + optsDisplay.opt2 + "</div>"
@@ -182,15 +187,15 @@
                     + "<div id='opt4'>" + optsDisplay.opt4 + "</div>"
                     + "<div id='opt5'>" + optsDisplay.opt5 + "</div>"
                     + "";
-                dropdownContentDiv.style.visibility = "hidden";
-                dropdownDiv.appendChild(dropdownContentDiv);
+                xDropdownContentDiv.style.visibility = "hidden";
+                xDropdownDiv.appendChild(xDropdownContentDiv);
                 //设置按钮
                 let settingBtn = document.createElement("div");
                 settingBtn.setAttribute("id", "settingBtn");
                 settingBtn.className = "settingBtn";
                 settingBtn.style.visibility = "hidden";
                 settingBtn.innerHTML = settingMark;
-                dropdownDiv.appendChild(settingBtn);
+                xDropdownDiv.appendChild(settingBtn);
                 //显示/隐藏按钮
                 let hiddenBtn = document.createElement("div")
                 hiddenBtn.setAttribute("id", "hiddenBtn");
@@ -206,8 +211,7 @@
                         //倒计时结束，重载页面
                         location.reload();
                     }else{
-                        document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
-                        seconds--;
+                        document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(--seconds%60).toString().padStart(2,'0');
                     }
                 },1000);
 
@@ -220,7 +224,7 @@
                         pauseBtn.style.visibility = "hidden";
                         leftTimeDiv.style.visibility = "hidden";
                         settingBtn.style.visibility = "hidden";
-                        dropdownContentDiv.style.visibility = "hidden";
+                        xDropdownContentDiv.style.visibility = "hidden";
                     }
                     else
                     {//显示倒计时
@@ -229,7 +233,7 @@
                         pauseBtn.style.visibility = "visible";
                         leftTimeDiv.style.visibility = "visible";
                         settingBtn.style.visibility = "visible";
-                        dropdownContentDiv.style.visibility = "visible";
+                        xDropdownContentDiv.style.visibility = "visible";
                     }
                 }));
 
@@ -247,7 +251,7 @@
                         hiddenBtn.innerHTML = unvisibleMark;
                         hiddenBtn.style.visibility = "visible";
                         settingBtn.style.visibility = "visible";
-                        dropdownContentDiv.style.visibility = "visible";
+                        xDropdownContentDiv.style.visibility = "visible";
                         clearInterval(timer);
                     }
                     else
@@ -257,15 +261,9 @@
                         hiddenBtn.innerHTML = visibleMark;
                         hiddenBtn.style.visibility = "hidden";
                         settingBtn.style.visibility = "hidden";
-                        dropdownContentDiv.style.visibility = "hidden";
+                        xDropdownContentDiv.style.visibility = "hidden";
                         timer = setInterval(function(){
-                            if(seconds < 0){
-                                //倒计时结束，重载页面
-                                location.reload();
-                            }else{
-                                document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
-                                seconds--;
-                            }
+                            document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(--seconds%60).toString().padStart(2,'0');
                         },1000);
                     }
                 }));
