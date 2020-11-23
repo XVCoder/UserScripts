@@ -212,8 +212,8 @@
                         //倒计时结束，重载页面
                         location.reload();
                     }else{
-                        document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
                         seconds--;
+                        document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
                     }
                 },1000);
 
@@ -269,8 +269,8 @@
                                 //倒计时结束，重载页面
                                 location.reload();
                             }else{
-                                document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
                                 seconds--;
+                                document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
                             }
                         },1000);
                     }
