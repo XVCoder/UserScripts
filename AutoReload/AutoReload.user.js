@@ -208,12 +208,12 @@
                 //================================================================事件========================================================================
                 //倒计时刷新
                 timer = setInterval(function(){
-                    if(seconds<0){
+                    if(seconds<=0){
                         //倒计时结束，重载页面
                         location.reload();
                     }else{
-                        seconds--;
                         document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
+                        seconds--;
                     }
                 },1000);
 
@@ -265,8 +265,13 @@
                         settingBtn.style.visibility = "hidden";
                         xDropdownContentDiv.style.visibility = "hidden";
                         timer = setInterval(function(){
-                            seconds--;
-                            document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
+                            if(seconds<=0){
+                                //倒计时结束，重载页面
+                                location.reload();
+                            }else{
+                                document.getElementById("leftTime").innerHTML=reloadHint+Math.floor(seconds/60).toString().padStart(2,'0')+":"+(seconds%60).toString().padStart(2,'0');
+                                seconds--;
+                            }
                         },1000);
                     }
                 }));
