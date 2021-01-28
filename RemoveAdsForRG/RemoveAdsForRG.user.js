@@ -10,6 +10,8 @@
 // @note         2021-01-28 v0.1 初始化
 // @match        https://refactoringguru.cn/*
 // @icon         https://xnu132.win/assets/img/favicon.png
+// @home-url     https://greasyfork.org/zh-CN/scripts/420804-removeadsforrg
+// @home-url2    https://github.com/XVCoder/UserScripts/RemoveAdsForRG
 // @grant        none
 // ==/UserScript==
 
