@@ -132,7 +132,7 @@
                 case 4: {
                     //option4
                     optsDisplay.opt4 += optSelectedMark;
-                    opts.opt4 * 60;
+                    seconds = opts.opt4 * 60;
                     break;
                 }
                 case 5: {
