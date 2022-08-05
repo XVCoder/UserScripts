@@ -20,7 +20,7 @@
 // @note         2020-11-20 v0.6 修改 默认匹配所有网页，修改match以指定需要自动刷新的网页
 // @note         2020-11-20 v0.5 新增 实现基本功能
 // @home-url     https://greasyfork.org/zh-CN/scripts/416449-auto-reload
-// @home-url2    https://github.com/XVCoder/UserScripts/AutoReload
+// @home-url2    https://github.com/XVCoder/UserScripts/blob/main/AutoReload/AutoReload.user.js
 // @homepageURL  https://greasyfork.org/zh-CN/scripts/416449-auto-reload
 // @grant        GM_getValue
 // @grant        GM.getValue
