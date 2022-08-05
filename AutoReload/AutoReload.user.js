@@ -10,7 +10,7 @@
 // @lastmodified 2021-03-02
 // @version      0.10
 // @match        http*://*/*
-// @icon         https://xnu132.win/assets/img/favicon.png
+// @icon         https://blog.solutionx.top/assets/img/favicon.png
 // @require      https://cdn.staticfile.org/vue/2.6.11/vue.js
 // @require      https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js
 // @note         2021-03-02 v0.10 修复 自定义倒计时时间选项无效的bug
